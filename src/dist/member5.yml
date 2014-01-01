@@ -1,0 +1,3 @@
+http:
+  port: 9008
+  adminPort: 9009

@@ -1,0 +1,39 @@
+apply from: script('requireJavaVersion7')
+apply from: script('dependencies')
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+applicationName = 'pipe-mock-event-pump'
+description = 'pipe-mock-event-pump --Pumps mocked use-case scenario events into the Pipeline ecosystem for demo/testing purposes'
+mainClassName = 'org.pipelinecd.mock.pump.event.Main'
+version = '0.1.0'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile libraries.dropwizard
+    compile libraries.groovy
+    compile libraries.groovyJson
+    compile libraries.hazelCast
+
+    testCompile libraries.spock
+    testCompile libraries.dropwizardTesting
+}
+
+run {
+    args 'server'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Pipeline Mock Event Pump'
+        attributes 'Implementation-Version': version
+    }
+}
+
+File script(String name) {
+    project.file("gradle/${name}.gradle")
+}
